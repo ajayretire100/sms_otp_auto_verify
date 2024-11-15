@@ -26,10 +26,16 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
             when (status.statusCode) {
                 CommonStatusCodes.SUCCESS -> {
                     // Get SMS message contents
-                    val sms: String = extras.get(SmsRetriever.EXTRA_SMS_MESSAGE) as String
-                    mySmsListener?.apply {
-                        onOtpReceived(message = sms)
+                    val sms: String? = extras.get(SmsRetriever.EXTRA_SMS_MESSAGE) as? String
+                    if(sms != null){
+                        mySmsListener?.apply {
+                            onOtpReceived(message = sms)
+                        }
+                    }else{
+                         // Handle the null case appropriately
+                        // Example: Log an error or assign a default value
                     }
+                    
 
 
                 }
